@@ -1,0 +1,216 @@
+.navbar-center {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    left: 0;
+    transform: translateX(-50%);
+    margin-left: 50%;
+    display: inline-block;
+
+}
+
+.navbar-nav {
+    font-size: 16px;
+    color: #07387A !important;
+}
+
+
+.navbar-nav .nav-item.active .nav-link {
+    text-decoration: underline;
+    font-weight: bold;
+    color: #07387A;
+}
+
+.titre {
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.btnsubmit {
+    background-color: #07387A !important;
+    font-weight: bold !important;
+    color: white !important;
+    transition: background-color 0.3s ease !important;
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+    margin-top: -6px !important;
+}
+
+.btnsubmit:hover {
+    background-color: #022a54 !important;
+}
+
+.btnreset {
+    background-color: #E0E0E0 !important;
+    font-weight: bold !important;
+    color: rgb(32, 32, 32) !important;
+    transition: background-color 0.3s ease !important;
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+    margin-top: -6px !important;
+}
+
+.btnreset:hover {
+    background-color: #bbbbbb !important;
+    color: rgb(0, 0, 0) !important;
+}
+
+.bleu-EDF {
+    background-color: #022a54 !important;
+}
+
+.btn-bleu-EDF {
+    background-color: #022a54;
+    color: white;
+}
+
+.btn-bleu-EDF:hover {
+    background-color: #3d539b;
+    color: white;
+}
+
+
+.texte-bleu {
+    color: #07387A !important;
+}
+
+.texte-orange {
+    color: #FE5716 !important;
+}
+
+.cadre-bleu {
+    background-color: #E9F1F9;
+    border-radius: 0 30px 30px 30px;
+    padding: 15px;
+}
+
+.btn-block {
+    margin: auto;
+}
+
+.no_padding {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+}
+
+input[type=number].no-arrow::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+}
+
+.fond-bleu-clair {
+    background-color: #E9F1F9 !important;
+}
+
+.fond-bleu {
+    background-color: rgba(189, 215, 238) !important;
+}
+
+/* .end-p {
+    right: 1em !important;
+} */
+
+.fs-0-9-rem {
+    font-size: 0.9rem !important;
+}
+
+.bouton-save {
+    background-color: #07387A !important;
+    color: white !important;
+}
+
+.bouton-dupliquer {
+    color: #07387A !important;
+    background-color: white !important;
+}
+
+.btnLogin {
+    background-color: #07387A !important;
+    font-weight: bold !important;
+    color: white !important;
+    transition: background-color 0.3s ease !important;
+    padding-top: 12px !important;
+    padding-bottom: 12px !important;
+
+
+}
+
+.btnLogin:hover {
+    background-color: #022a54 !important;
+}
+
+.position_checkbox {
+    left: 77% !important;
+}
+
+.position_arrow_right {
+    left: 95% !important;
+    top: 40% !important;
+}
+
+.position_arrow_curve_right {
+    left: 90% !important;
+    top: 54% !important;
+}
+
+.position_arrow_left {
+    left: -6% !important;
+    top: 43% !important;
+}
+
+.position_arrow_curve_left {
+    left: -8% !important;
+    top: 55% !important;
+}
+
+.center-edit {
+    margin-left: -12%;
+    z-index: 0;
+}
+
+.edit-btn {
+    z-index: 1;
+}
+
+.alert-container {
+    position: fixed;
+    top: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 600px;
+    /* Adjust this to your desired max width */
+    z-index: 1050;
+    /* Ensure it appears above other elements */
+    padding: 10px;
+    /* Optional: Add padding for spacing */
+}
+
+.alert-placeholder {
+    width: 100%;
+}
+
+#bg_spinner {
+    text-align: center;
+    color: #FFFFFF;
+    padding: 350px;
+    top: 0;
+    left: 0;
+    z-index: 1070;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+}
+
+#spinner {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 100;
+}
+
+.fond_gris {
+    background-color: #eeecec;
+}

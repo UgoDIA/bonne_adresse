@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>Titre</title>
+        <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}" />
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+        <link rel="stylesheet" href="{{ url_for('static', filename='librairie/bootstrap/bootstrap.min.css') }}" />
+        <link rel="stylesheet" href="{{ url_for('static', filename='librairie/datatables/datatables.min.css') }}" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/handsontable/dist/handsontable.full.min.css">
+
+
+        {% block head %}{% endblock %}
+    </head>
+
+    <body>
+        {# {% if session.get('user') %} #}
+        {% include 'navbar.html' %}
+        {# {% endif%} #}
+        {% block content %}{% endblock %}
+        <script src="{{ url_for('static', filename='librairie/jquery/jquery-3.7.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='librairie/popper/popper.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='librairie/bootstrap/bootstrap.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='librairie/datatables/datatables.min.js') }}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/handsontable/dist/handsontable.full.min.js"></script>
+        {% block script %}{% endblock %}
+    </body>
+
+</html>

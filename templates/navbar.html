@@ -1,0 +1,49 @@
+<div>
+    <nav class="navbar navbar-expand-lg navbar-light">
+   
+
+        {# {% if session.get('user') %}  #}
+        <div class="navbar-center">
+            <a href="{{ url_for('main.page_main') }}">
+                <h1 class="d-inline-block align-middle titre">
+                    <span class="texte-bleu">Titre</span>
+                </h1>
+            </a>
+        </div>
+
+
+        <div class="collapse navbar-collapse justify-content-end " id="navbarNav">
+            <ul class="navbar-nav fs-5">
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link " href="#" role="button" id="userDropdown" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        <img class="mx-1" src="{{ url_for('static', filename='images/burger-bar.png') }}"
+                            alt="user icon" style="max-height: 35px; margin-top:-10px" />
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end fs-6 mr-5 text-center" aria-labelledby="userDropdown">
+                        <li>
+                            <p class="dropdown-item-text texte_bleu"
+                                style="text-transform: uppercase; margin-bottom: -5px; white-space: nowrap;">
+                                <img class="mx-1"
+                                    src="{{ url_for('static', filename='images/user_icon_no_circle.png') }}"
+                                    alt="user icon" style="max-height: 15px; margin-top: -5px;" />
+                                {# {{ session['user']['user']['nom_prenom_agent'] }}  #}
+                            </p>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item texte-bleu"
+                                href="{{ url_for('static', filename='documentation/doc.pdf') }}"
+                                target="_blank">Documentation</a></li>
+
+
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        {# {% endif %} #}
+    </nav>
+    <hr class="" style="margin-top: -5px">
+</div>
