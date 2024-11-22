@@ -73,7 +73,7 @@ def upload_file():
 
         return jsonify({
             "export": df_json,
-            "summary": summary,
+            "stats": summary,
             "map": map_json
         }), 200
 
