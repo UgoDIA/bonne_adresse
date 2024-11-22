@@ -18,4 +18,20 @@ def page_main():
     return render_template('main.html')
 
 
+@main_bp.route('/bonne_adresse/upload_file/', methods=['POST'])
+def upload_file():
+    if 'file' not in request.files:
+        return jsonify({'message': 'Aucun fichier'}), 400
 
+    file = request.files['file']
+
+    if file.filename == '':
+        return jsonify({'message': 'Pas de fichier sélectionné'}), 400
+
+ 
+    return jsonify({'message': 'upload ok'}), 200
+
+
+def transform_df(df):
+    
+    return
