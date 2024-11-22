@@ -62,9 +62,14 @@ def upload_file():
         map_df = df[['x', 'y', 'adress']]
         map_df.rename(columns={'x': 'lon', 'y': 'lat'}, inplace=True)
         summary = {
-            "correct": 65, 
-            "corrigés": 30,  
-            "invalides": 5  
+            "correct_pourcent": 65,
+            "corriger_pourcent": 30,
+            "no_match_pourcent": 5  
+        }
+        tab = {
+            "adresse_origine": "Lotissement Chemin des Barrières",
+            "adresse_corrige": "Lotissement Chemin des Baarrières",
+            "fiabilite": "90%"
         }
 
     
@@ -74,7 +79,8 @@ def upload_file():
         return jsonify({
             "export": df_json,
             "stats": summary,
-            "map": map_json
+            "map": map_json,
+            "tab": tab
         }), 200
 
     except Exception as e:
