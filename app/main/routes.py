@@ -85,7 +85,8 @@ def upload_file():
             "fiability": "80%"
         }]
 
-        df = df[['num_voie', 'cp_no_voie', 'type_voie', 'nom_voie', 'code_postal','nom_commune']].copy()
+        df = df[['num_voie', 'cp_no_voie', 'type_voie', 'nom_voie', 'code_poste','nom_com']].copy()
+        df.rename(columns={'code_poste': 'code_postal', 'nom_com': 'nom_commune'},inplace=True)
         df_json = df.to_json(orient='records', force_ascii=False)
         map_json = map_df.to_json(orient='records', force_ascii=False)
 
