@@ -133,8 +133,7 @@ def insert_data(df):
     dbport = os.environ.get('DBPORT')
 
     #  chaîne de connexion PostgreSQL
-    connection_string = f"postgresql://{dbuser}:{
-        dbpwd}@{dbhost}:{dbport}/{dbname}"
+    connection_string = f"postgresql://{dbuser}:{dbpwd}@{dbhost}:{dbport}/{dbname}"
 
     # Créer une connexion à la base de donnéess
     engine = create_engine(connection_string)
