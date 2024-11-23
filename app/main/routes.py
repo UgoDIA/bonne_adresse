@@ -22,9 +22,7 @@ def redirection():
 
 @main_bp.route('/bonne_adresse/')
 def page_main():
-    ban_data, description = db_service.fetch_all("ban")
-    ban_df = pd.DataFrame(ban_data, columns=description)
-    ban_df.to_csv("ban.csv", index=False)
+  
     return render_template('main.html')
 
 
