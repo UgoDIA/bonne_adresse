@@ -70,47 +70,47 @@ def upload_file():
         
         ban_data, description = db_service.fetch_all("ban")
         df_ban = pd.DataFrame(ban_data, columns=description)
-    
-
-        # df_client["id"] = df_client.index
-
-        # seuil = 0.8
-        # nb_corrige = 0
-        # nb_total = len(df_client)
-        # nb_no_match = 0
-        # type_voie = pd.DataFrame(df_ban['type_voie'].unique(), columns=['type_voie'])
-        # df_client = pd.merge(df_client, type_voie, left_on='type_voie',
-        #                     right_on='type_voie', how='left', indicator=True)
-        # left_only = df_client[df_client['_merge'] == 'left_only']
-        # df_client.drop(columns=['_merge'], inplace=True, errors='ignore')
-        # dist = distLevenshtein(df_ban['type_voie'].unique(), left_only['type_voie'])
-        # df_client = pd.merge(df_client, dist.add_prefix("tv_"), left_on='type_voie',
-        #                     right_on='tv_input_address', how='left')
-        # nom_voie = pd.DataFrame(df_ban['nom_voie'].unique(), columns=['nom_voie'])
-        # df_client = pd.merge(df_client, nom_voie, left_on='nom_voie',
-        #                     right_on='nom_voie', how='left', indicator=True)
-        # left_only = df_client[df_client['_merge'] == 'left_only']
-        # df_client.drop(columns=['_merge'], inplace=True, errors='ignore')
-        # dist = distLevenshtein(df_ban['nom_voie'].unique(), left_only['nom_voie'])
-        # df_client = pd.merge(df_client, dist.add_prefix(
-        #     "nv_"), left_on='nom_voie', right_on='nv_input_address', how='left')
 
 
-        # df_client = df_client.drop_duplicates(subset='id', keep='first')
-        # nb_no_match = df_client[df_client['tv_match_confidence'] < seuil].shape[0] + \
-        #     df_client[df_client['nv_match_confidence'] < seuil].shape[0]
-        # nb_corrige = df_client[df_client['tv_match_confidence'] > seuil].shape[0] + \
-        #     df_client[df_client['nv_match_confidence'] > seuil].shape[0]
-        # pourcent_no_match = (nb_no_match * 100) / nb_total
-        # pourcent_corrige = (nb_corrige * 100) / nb_total
+        df_client["id"] = df_client.index
 
-        # pourcent_correct = 100 - pourcent_no_match - pourcent_corrige
+        seuil = 0.8
+        nb_corrige = 0
+        nb_total = len(df_client)
+        nb_no_match = 0
+        type_voie = pd.DataFrame(df_ban['type_voie'].unique(), columns=['type_voie'])
+        df_client = pd.merge(df_client, type_voie, left_on='type_voie',
+                            right_on='type_voie', how='left', indicator=True)
+        left_only = df_client[df_client['_merge'] == 'left_only']
+        df_client.drop(columns=['_merge'], inplace=True, errors='ignore')
+        dist = distLevenshtein(df_ban['type_voie'].unique(), left_only['type_voie'])
+        df_client = pd.merge(df_client, dist.add_prefix("tv_"), left_on='type_voie',
+                            right_on='tv_input_address', how='left')
+        nom_voie = pd.DataFrame(df_ban['nom_voie'].unique(), columns=['nom_voie'])
+        df_client = pd.merge(df_client, nom_voie, left_on='nom_voie',
+                            right_on='nom_voie', how='left', indicator=True)
+        left_only = df_client[df_client['_merge'] == 'left_only']
+        df_client.drop(columns=['_merge'], inplace=True, errors='ignore')
+        dist = distLevenshtein(df_ban['nom_voie'].unique(), left_only['nom_voie'])
+        df_client = pd.merge(df_client, dist.add_prefix(
+            "nv_"), left_on='nom_voie', right_on='nv_input_address', how='left')
+
+
+        df_client = df_client.drop_duplicates(subset='id', keep='first')
+        nb_no_match = df_client[df_client['tv_match_confidence'] < seuil].shape[0] + \
+            df_client[df_client['nv_match_confidence'] < seuil].shape[0]
+        nb_corrige = df_client[df_client['tv_match_confidence'] > seuil].shape[0] + \
+            df_client[df_client['nv_match_confidence'] > seuil].shape[0]
+        pourcent_no_match = (nb_no_match * 100) / nb_total
+        pourcent_corrige = (nb_corrige * 100) / nb_total
+
+        pourcent_correct = 100 - pourcent_no_match - pourcent_corrige
         
-        # summary = {
-        #     "correct_pourcent": pourcent_correct,
-        #     "corriger_pourcent": pourcent_corrige,
-        #     "no_match_pourcent": pourcent_no_match
-        # }
+        summary = {
+            "correct_pourcent": pourcent_correct,
+            "corriger_pourcent": pourcent_corrige,
+            "no_match_pourcent": pourcent_no_match
+        }
         
         # df_no_match_corrige = df_client['tv_match_confidence'].notna() | df_client['nv_match_confidence'].notna()
         
@@ -174,7 +174,7 @@ def upload_file():
 
         return jsonify({
             "export": "test",
-            # "stats": summary,
+            "stats": summary,
             # "map": map_json,
             # "tab": df_no_match_corrige_json
         }), 200
