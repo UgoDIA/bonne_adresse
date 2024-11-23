@@ -53,14 +53,14 @@ def upload_file():
         else:
             return jsonify({'message': 'Type de fichier non supporté'}), 400
 
-        df['adress'] = (
+        df['correct_address'] = (
             df['num_voie'].astype(str) + " " +
             df['cp_no_voie'].astype(str) + " " +
             df['type_voie'].astype(str) + " " +
             df['nom_voie'].astype(str)
         )
         map_df = df[['x', 'y', 'adress']]
-        map_df.rename(columns={'x': 'lon', 'y': 'lat'}, inplace=True)
+        map_df.rename(columns={'x': 'long', 'y': 'lat'}, inplace=True)
         summary = {
             "correct_pourcent": 65,
             "corriger_pourcent": 30,
@@ -70,18 +70,18 @@ def upload_file():
 
         tab =[
         {
-            "correct_address": "Lotissement Chemin des Barrières",
-            "origine_address": "Lotissement Chemin des Baarrières",
+            "correct_address": "22 Lotissement Chemin des Barrières",
+            "origine_address": "22 Lotissement Chemin des Baarrières",
             "fiability": "90%"
         },
         {
-            "correct_address": "Rue des Fleurs",
-            "origine_address": "Rue des Flleurs",
+            "correct_address": "13 Rue des Fleurs",
+            "origine_address": "13 Rue des Flleurs",
             "fiability": "85%"
         },
         {
-            "correct_address": "Avenue des Palmiers",
-            "origine_address": "Avenue des Plamiers",
+            "correct_address": "5 Avenue des Palmiers",
+            "origine_address": "5 Avenue des Plamiers",
             "fiability": "80%"
         }]
 
