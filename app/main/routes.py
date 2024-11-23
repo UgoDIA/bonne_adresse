@@ -67,9 +67,9 @@ def upload_file():
             "no_match_pourcent": 5  
         }
         tab = {
-            "adresse_origine": "Lotissement Chemin des Barrières",
-            "adresse_corrige": "Lotissement Chemin des Baarrières",
-            "fiabilite": "90%"
+            "correct_address": "Lotissement Chemin des Barrières",
+            "origine_address": "Lotissement Chemin des Baarrières",
+            "fiability": "90%"
         }
 
     
