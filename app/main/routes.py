@@ -59,7 +59,7 @@ def upload_file():
             df['type_voie'].astype(str) + " " +
             df['nom_voie'].astype(str)
         )
-        map_df = df[['x', 'y', 'adress']]
+        map_df = df[['x', 'y', 'correct_address']]
         map_df.rename(columns={'x': 'long', 'y': 'lat'}, inplace=True)
         summary = {
             "correct_pourcent": 65,
