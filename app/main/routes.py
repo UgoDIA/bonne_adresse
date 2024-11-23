@@ -54,129 +54,129 @@ def upload_file():
         else:
             return jsonify({'message': 'Type de fichier non supporté'}), 400
         
-        df_client["nom_voie"] = df_client["nom_voie"].apply(normalize_text)
+        # df_client["nom_voie"] = df_client["nom_voie"].apply(normalize_text)
         
-        df_client["cp_no_voie"] = delExcessBlanc(df_client["cp_no_voie"])
-        df_client["cp_no_voie"] = delPoint(df_client["cp_no_voie"])
-        df_client["cp_no_voie"] = df_client["cp_no_voie"].apply(normalize_text)
+        # df_client["cp_no_voie"] = delExcessBlanc(df_client["cp_no_voie"])
+        # df_client["cp_no_voie"] = delPoint(df_client["cp_no_voie"])
+        # df_client["cp_no_voie"] = df_client["cp_no_voie"].apply(normalize_text)
 
-        df_client["nom_voie"] = delExcessBlanc(df_client["nom_voie"])
-        df_client["nom_voie"] = delPoint(df_client["nom_voie"])
-        df_client["nom_voie"] = delArticle(df_client["nom_voie"])
+        # df_client["nom_voie"] = delExcessBlanc(df_client["nom_voie"])
+        # df_client["nom_voie"] = delPoint(df_client["nom_voie"])
+        # df_client["nom_voie"] = delArticle(df_client["nom_voie"])
 
-        df_client["type_voie"] = df_client["type_voie"].apply(normalize_text)
-        df_client["type_voie"] = delExcessBlanc(df_client["type_voie"])
-        df_client["nom_voie"] = delPoint(df_client["nom_voie"])
+        # df_client["type_voie"] = df_client["type_voie"].apply(normalize_text)
+        # df_client["type_voie"] = delExcessBlanc(df_client["type_voie"])
+        # df_client["nom_voie"] = delPoint(df_client["nom_voie"])
         
-        ban_data, description = db_service.fetch_all("ban")
-        df_ban = pd.DataFrame(ban_data, columns=description)
+        # ban_data, description = db_service.fetch_all("ban")
+        # df_ban = pd.DataFrame(ban_data, columns=description)
 
 
-        df_client["id"] = df_client.index
+        # df_client["id"] = df_client.index
 
-        seuil = 0.8
-        nb_corrige = 0
-        nb_total = len(df_client)
-        nb_no_match = 0
-        type_voie = pd.DataFrame(df_ban['type_voie'].unique(), columns=['type_voie'])
-        df_client = pd.merge(df_client, type_voie, left_on='type_voie',
-                            right_on='type_voie', how='left', indicator=True)
-        left_only = df_client[df_client['_merge'] == 'left_only']
-        df_client.drop(columns=['_merge'], inplace=True, errors='ignore')
-        dist = distLevenshtein(df_ban['type_voie'].unique(), left_only['type_voie'])
-        df_client = pd.merge(df_client, dist.add_prefix("tv_"), left_on='type_voie',
-                            right_on='tv_input_address', how='left')
-        nom_voie = pd.DataFrame(df_ban['nom_voie'].unique(), columns=['nom_voie'])
-        df_client = pd.merge(df_client, nom_voie, left_on='nom_voie',
-                            right_on='nom_voie', how='left', indicator=True)
-        left_only = df_client[df_client['_merge'] == 'left_only']
-        df_client.drop(columns=['_merge'], inplace=True, errors='ignore')
-        dist = distLevenshtein(df_ban['nom_voie'].unique(), left_only['nom_voie'])
-        df_client = pd.merge(df_client, dist.add_prefix(
-            "nv_"), left_on='nom_voie', right_on='nv_input_address', how='left')
+        # seuil = 0.8
+        # nb_corrige = 0
+        # nb_total = len(df_client)
+        # nb_no_match = 0
+        # type_voie = pd.DataFrame(df_ban['type_voie'].unique(), columns=['type_voie'])
+        # df_client = pd.merge(df_client, type_voie, left_on='type_voie',
+        #                     right_on='type_voie', how='left', indicator=True)
+        # left_only = df_client[df_client['_merge'] == 'left_only']
+        # df_client.drop(columns=['_merge'], inplace=True, errors='ignore')
+        # dist = distLevenshtein(df_ban['type_voie'].unique(), left_only['type_voie'])
+        # df_client = pd.merge(df_client, dist.add_prefix("tv_"), left_on='type_voie',
+        #                     right_on='tv_input_address', how='left')
+        # nom_voie = pd.DataFrame(df_ban['nom_voie'].unique(), columns=['nom_voie'])
+        # df_client = pd.merge(df_client, nom_voie, left_on='nom_voie',
+        #                     right_on='nom_voie', how='left', indicator=True)
+        # left_only = df_client[df_client['_merge'] == 'left_only']
+        # df_client.drop(columns=['_merge'], inplace=True, errors='ignore')
+        # dist = distLevenshtein(df_ban['nom_voie'].unique(), left_only['nom_voie'])
+        # df_client = pd.merge(df_client, dist.add_prefix(
+        #     "nv_"), left_on='nom_voie', right_on='nv_input_address', how='left')
 
 
-        df_client = df_client.drop_duplicates(subset='id', keep='first')
-        nb_no_match = df_client[df_client['tv_match_confidence'] < seuil].shape[0] + \
-            df_client[df_client['nv_match_confidence'] < seuil].shape[0]
-        nb_corrige = df_client[df_client['tv_match_confidence'] > seuil].shape[0] + \
-            df_client[df_client['nv_match_confidence'] > seuil].shape[0]
-        pourcent_no_match = (nb_no_match * 100) / nb_total
-        pourcent_corrige = (nb_corrige * 100) / nb_total
+        # df_client = df_client.drop_duplicates(subset='id', keep='first')
+        # nb_no_match = df_client[df_client['tv_match_confidence'] < seuil].shape[0] + \
+        #     df_client[df_client['nv_match_confidence'] < seuil].shape[0]
+        # nb_corrige = df_client[df_client['tv_match_confidence'] > seuil].shape[0] + \
+        #     df_client[df_client['nv_match_confidence'] > seuil].shape[0]
+        # pourcent_no_match = (nb_no_match * 100) / nb_total
+        # pourcent_corrige = (nb_corrige * 100) / nb_total
 
-        pourcent_correct = 100 - pourcent_no_match - pourcent_corrige
+        # pourcent_correct = 100 - pourcent_no_match - pourcent_corrige
         
-        summary = {
-            "correct_pourcent": pourcent_correct,
-            "corriger_pourcent": pourcent_corrige,
-            "no_match_pourcent": pourcent_no_match
-        }
+        # summary = {
+        #     "correct_pourcent": pourcent_correct,
+        #     "corriger_pourcent": pourcent_corrige,
+        #     "no_match_pourcent": pourcent_no_match
+        # }
         
-        df_no_match_corrige = df_client['tv_match_confidence'].notna() | df_client['nv_match_confidence'].notna()
+        # df_no_match_corrige = df_client['tv_match_confidence'].notna() | df_client['nv_match_confidence'].notna()
         
-        df_no_match_corrige['tv_best_match'] = df_no_match_corrige['tv_best_match'].fillna(
-            df_no_match_corrige['type_voie'])
+        # df_no_match_corrige['tv_best_match'] = df_no_match_corrige['tv_best_match'].fillna(
+        #     df_no_match_corrige['type_voie'])
 
 
-        df_no_match_corrige['nv_best_match'] = df_no_match_corrige['nv_best_match'].fillna(
-            df_no_match_corrige['nom_voie'])
-        df_no_match_corrige[['num_voie', 'type_voie', 'nom_voie', 'tv_best_match', 'nv_best_match']] = df_no_match_corrige[
-            ['num_voie', 'type_voie', 'nom_voie', 'tv_best_match', 'nv_best_match']
-        ].fillna('')
+        # df_no_match_corrige['nv_best_match'] = df_no_match_corrige['nv_best_match'].fillna(
+        #     df_no_match_corrige['nom_voie'])
+        # df_no_match_corrige[['num_voie', 'type_voie', 'nom_voie', 'tv_best_match', 'nv_best_match']] = df_no_match_corrige[
+        #     ['num_voie', 'type_voie', 'nom_voie', 'tv_best_match', 'nv_best_match']
+        # ].fillna('')
 
-        df_no_match_corrige['num_voie'] = df_no_match_corrige['num_voie'].astype(str)
-        df_no_match_corrige['type_voie'] = df_no_match_corrige['type_voie'].astype(str)
-        df_no_match_corrige['nom_voie'] = df_no_match_corrige['nom_voie'].astype(str)
-        df_no_match_corrige['tv_best_match'] = df_no_match_corrige['tv_best_match'].astype(
-            str)
-        df_no_match_corrige['nv_best_match'] = df_no_match_corrige['nv_best_match'].astype(
-            str)
-
-
-        df_no_match_corrige['adresse_origine'] = df_no_match_corrige['num_voie'] + ' ' + \
-            df_no_match_corrige['type_voie'] + ' ' + df_no_match_corrige['nom_voie']
+        # df_no_match_corrige['num_voie'] = df_no_match_corrige['num_voie'].astype(str)
+        # df_no_match_corrige['type_voie'] = df_no_match_corrige['type_voie'].astype(str)
+        # df_no_match_corrige['nom_voie'] = df_no_match_corrige['nom_voie'].astype(str)
+        # df_no_match_corrige['tv_best_match'] = df_no_match_corrige['tv_best_match'].astype(
+        #     str)
+        # df_no_match_corrige['nv_best_match'] = df_no_match_corrige['nv_best_match'].astype(
+        #     str)
 
 
-        df_no_match_corrige['adress_corrigé'] = df_no_match_corrige['num_voie'].astype(str) + ' ' + \
-            df_no_match_corrige['tv_best_match'].astype(str) + ' ' + \
-            df_no_match_corrige['nv_best_match'].astype(str)
+        # df_no_match_corrige['adresse_origine'] = df_no_match_corrige['num_voie'] + ' ' + \
+        #     df_no_match_corrige['type_voie'] + ' ' + df_no_match_corrige['nom_voie']
+
+
+        # df_no_match_corrige['adress_corrigé'] = df_no_match_corrige['num_voie'].astype(str) + ' ' + \
+        #     df_no_match_corrige['tv_best_match'].astype(str) + ' ' + \
+        #     df_no_match_corrige['nv_best_match'].astype(str)
             
-        df_client['correct_address'] = (
-            df_client['num_voie'].astype(str) + " " +
-            df_client['cp_no_voie'].astype(str) + " " +
-            df_client['type_voie'].astype(str) + " " +
-            df_client['nom_voie'].astype(str)
-        )
+        # df_client['correct_address'] = (
+        #     df_client['num_voie'].astype(str) + " " +
+        #     df_client['cp_no_voie'].astype(str) + " " +
+        #     df_client['type_voie'].astype(str) + " " +
+        #     df_client['nom_voie'].astype(str)
+        # )
 
-        map_df = df_client[['long', 'lat', 'correct_address']].dropna(
-            subset=['long', 'lat', 'correct_address'])
+        # map_df = df_client[['long', 'lat', 'correct_address']].dropna(
+        #     subset=['long', 'lat', 'correct_address'])
 
-        map_json = map_df.to_json(orient='records', force_ascii=False)
-        df_no_match_corrige['average_fiability'] = df_no_match_corrige.apply(
-            lambda row: (row['nv_match_confidence'] +
-                         row['tv_match_confidence']) / 2
-            if pd.notnull(row['nv_match_confidence']) and pd.notnull(row['tv_match_confidence'])
-            else row['nv_match_confidence'] if pd.notnull(row['nv_match_confidence'])
-            else row['tv_match_confidence'], axis=1
-        )
-        df_no_match_corrige = df_no_match_corrige[['adresse_origine', 'adress_corrigé', 'average_fiability']]
-        df_no_match_corrige_json = df_no_match_corrige.to_json(
-            orient='records', force_ascii=False)
+        # map_json = map_df.to_json(orient='records', force_ascii=False)
+        # df_no_match_corrige['average_fiability'] = df_no_match_corrige.apply(
+        #     lambda row: (row['nv_match_confidence'] +
+        #                  row['tv_match_confidence']) / 2
+        #     if pd.notnull(row['nv_match_confidence']) and pd.notnull(row['tv_match_confidence'])
+        #     else row['nv_match_confidence'] if pd.notnull(row['nv_match_confidence'])
+        #     else row['tv_match_confidence'], axis=1
+        # )
+        # df_no_match_corrige = df_no_match_corrige[['adresse_origine', 'adress_corrigé', 'average_fiability']]
+        # df_no_match_corrige_json = df_no_match_corrige.to_json(
+        #     orient='records', force_ascii=False)
         
   
 
 
 
-        df_client = df_client[['num_voie', 'cp_no_voie', 'type_voie', 'nom_voie', 'code_poste','nom_com']].copy()
+        # df_client = df_client[['num_voie', 'cp_no_voie', 'type_voie', 'nom_voie', 'code_poste','nom_com']].copy()
        
-        df_json = df_client.to_json(orient='records', force_ascii=False)
+        # df_json = df_client.to_json(orient='records', force_ascii=False)
       
 
         return jsonify({
-            "export": df_json,
-            "stats": summary,
-            "map": map_json,
-            "tab": df_no_match_corrige_json
+            "export": "ok",
+            # "stats": summary,
+            # "map": map_json,
+            # "tab": df_no_match_corrige_json
         }), 200
 
     except Exception as e:
