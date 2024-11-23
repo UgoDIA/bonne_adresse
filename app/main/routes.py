@@ -66,11 +66,24 @@ def upload_file():
             "corriger_pourcent": 30,
             "no_match_pourcent": 5  
         }
-        tab = {
+
+
+        tab =[
+        {
             "correct_address": "Lotissement Chemin des Barrières",
             "origine_address": "Lotissement Chemin des Baarrières",
             "fiability": "90%"
-        }
+        },
+        {
+            "correct_address": "Rue des Fleurs",
+            "origine_address": "Rue des Flleurs",
+            "fiability": "85%"
+        },
+        {
+            "correct_address": "Avenue des Palmiers",
+            "origine_address": "Avenue des Plamiers",
+            "fiability": "80%"
+        }]
 
     
         df_json = df.to_json(orient='records', force_ascii=False)
